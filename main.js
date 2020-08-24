@@ -31,13 +31,10 @@ const enemy = {
     elProgressbar: document.getElementById('progressbar-enemy'),
     changeHP: function (damageCount) {
         if(this.damageHP <= damageCount){
-            console.log('1')
-            console.log(damageCount,'1')
             this.damageHP -= 0;
             resetBtnFunction(true)
             alert(`Game over ${this.name}`)
         }else {
-            console.log('2')
             this.damageHP -= damageCount;
         }
 
