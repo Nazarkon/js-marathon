@@ -21,7 +21,6 @@ const enemy = {
     heightDamage: 50,
     elHP: document.getElementById('health-enemy'),
     elProgressbar: document.getElementById('progressbar-enemy'),
-    changeHP: changeHp,
     renderHPLife: renderHPLife,
     renderProgressbarHp: renderProgressbarHp
 }
@@ -75,9 +74,9 @@ const resetBtnFunction = (currValue) =>  $gameBtn.forEach(btn => btn.disabled = 
 function giveDamage(id) {
     const { lowDamage , heightDamage } = enemy;
     if(id === 'btn-kick-low'){
-        enemy.changeHP(random(lowDamage))
+        character.changeHP.call(enemy, random(lowDamage))
     }else if(id === 'btn-kick-height'){
-        enemy.changeHP(random(heightDamage))
+        character.changeHP.call(enemy,random(heightDamage))
     }
 }
 
