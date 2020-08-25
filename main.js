@@ -8,17 +8,9 @@ const character = {
     heightDamage: 50,
     elHP: document.getElementById('health-character'),
     elProgressbar: document.getElementById('progressbar-character'),
-    changeHP: function (damageCount) {
-        if (this.damageHP < damageCount) {
-            this.damageHP -= 0;
-            alert(`Game over ${this.name}`)
-            resetBtnFunction(true)
-        } else {
-            this.damageHP -= damageCount;
-        }
-    },
-    renderHPLife: function () { this.elHP.innerText = this.damageHP + '/' + this.defaultHP },
-    renderProgressbarHp: function () { this.elProgressbar.style.width = (this.damageHP / 100) * 100 + '%';}
+    changeHP: changeHp,
+    renderHPLife: renderHPLife,
+    renderProgressbarHp: renderProgressbarHp
 }
 
 const enemy = {
@@ -29,7 +21,12 @@ const enemy = {
     heightDamage: 50,
     elHP: document.getElementById('health-enemy'),
     elProgressbar: document.getElementById('progressbar-enemy'),
-    changeHP: function (damageCount) {
+    changeHP: changeHp,
+    renderHPLife: renderHPLife,
+    renderProgressbarHp: renderProgressbarHp
+}
+
+    function changeHp(damageCount){
         if(this.damageHP <= damageCount){
             this.damageHP -= 0;
             resetBtnFunction(true)
@@ -40,24 +37,30 @@ const enemy = {
 
         this.renderHPLife();
         this.renderProgressbarHp();
-    },
-    renderHPLife: function () { this.elHP.innerText = this.damageHP + '/' + this.defaultHP },
-    renderProgressbarHp: function () { this.elProgressbar.style.width = (this.damageHP / 100) * 100 + '%'; }
-}
+    }
+
+
+    function renderProgressbarHp(){
+        this.elProgressbar.style.width = (this.damageHP / 100) * 100 + '%';
+    }
+
+    function renderHPLife(){
+        this.elHP.innerText = this.damageHP + '/' + this.defaultHP
+    }
 
 // Listen for all click events on the page using event delegation
 document.addEventListener('click', function (e) {
 
     if(e.target.id === 'btn-start'){
         resetBtnFunction(false)
-        enemy.renderHPLife();
-        enemy.renderProgressbarHp();
+        renderHPLife.call(enemy);
+        renderProgressbarHp.call(enemy);
     }else if(e.target.id === 'btn-reset'){
         resetBtnFunction(false)
         enemy.defaultHP = 100;
         enemy.damageHP = 100;
-        enemy.renderProgressbarHp();
-        enemy.renderHPLife();
+        renderProgressbarHp.call(enemy);
+        renderHPLife.call(enemy);
     }else{
         giveDamage(e.target.id)
     }
