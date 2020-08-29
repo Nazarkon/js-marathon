@@ -43,10 +43,12 @@
 
         <div class="control">
             <button class="button game-btn" id="btn-kick-low" disabled="true">
-                Low Damage
+                <p>Low Damage</p>
+                <p id="click-count-low">0</p>
             </button>
             <button class="button game-btn" id="btn-kick-height" disabled="true">
-               High Damage
+                <p>High Damage</p>
+                <p id="click-count-height">0</p>
             </button>
 
         </div>
@@ -69,8 +71,12 @@
             </div>
         </div>
     </div>
+    <button id="show-count" class="button">Show count</button>
     <div id="log">
-
+        <div id="battle-log"></div>
+        <div id="count-log">
+            <p>Current Click Count</p>
+        </div>
     </div>
 </div>
 <div class="catch_screen"></div>
