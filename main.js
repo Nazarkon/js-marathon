@@ -83,7 +83,7 @@ const enemy = {
 document.addEventListener('click', function (e) {
     const currentId = e.target.id;
 
-    if(currentId !== ''){
+    if(currentId !== ''  && currentId !== undefined){
        showClickCount(currentId)
     }
 
