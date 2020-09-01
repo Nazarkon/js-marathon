@@ -54,6 +54,12 @@ $btnHeight.addEventListener('click', function () {
 
 $btnReset.addEventListener('click', function () {
     resetBtnFunction(false)
+    player1.hp.current = player1.hp.total;
+    player2.hp.current = player2.hp.total
+    player1.renderHPLife();
+    player2.renderHPLife();
+    player1.renderProgressbarHp();
+    player2.renderProgressbarHp();
     $currClickCountHeight.innerHTML = objId.maxClickCountHeightDamage;
     $currClickCountLow.innerHTML = objId.maxClickCountLowDamage;
 });
