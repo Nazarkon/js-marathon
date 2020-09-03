@@ -8,6 +8,12 @@ const $btnHeight = document.getElementById('btn-kick-height');
 const $btnStart = document.getElementById('btn-start');
 const $btnReset = document.getElementById('btn-reset');
 const $btnShowCount = document.getElementById('show-count');
+const $btnRandomHero = document.getElementById('btn-random-hero');
+const $btnRandomEnemy = document.getElementById('btn-random-enemy');
+const $hero = document.getElementById('name-character');
+const $enemy = document.getElementById('name-enemy');
+const $enemyImg = document.getElementById('enemy-img');
+const $characterImg = document.getElementById('character-img')
 
 export  {
     $gameBtn ,
@@ -19,5 +25,11 @@ export  {
     $btnLow,
     $btnReset ,
     $btnStart,
-    $btnShowCount
+    $btnShowCount,
+    $btnRandomEnemy,
+    $btnRandomHero,
+    $hero,
+    $enemy,
+    $enemyImg,
+    $characterImg,
 }

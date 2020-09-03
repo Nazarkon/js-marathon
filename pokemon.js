@@ -1,6 +1,7 @@
 import {generateLog} from "./logsConstructor.js";
-import {player2,player1} from "./main.js";
-
+import {player2,player1} from "./btnActions.js";
+import {$hero,$enemy,$characterImg,$enemyImg} from "./variables.js";
+ 
 class Selectors {
     constructor(name) {
         this.elHP = document.getElementById(`health-${name}`);
@@ -9,7 +10,7 @@ class Selectors {
 }
 
 class Pokemon extends Selectors{
-    constructor({name , hp , type , selectors}) {
+    constructor({name , hp , type , selectors , img}) {
         super(selectors)
         this.name = name
         this.hp = {
@@ -17,6 +18,8 @@ class Pokemon extends Selectors{
             total: hp
         };
         this.type = type;
+        this.img = img;
+        this.selectors = selectors
         this.renderHPLife();
     }
 
@@ -41,7 +44,14 @@ class Pokemon extends Selectors{
     }
 
     renderHPLife = () => {
-        const { elHP , hp:{current, total}} = this
+        const { elHP , name , hp:{current, total},selectors,img} = this
+        if(selectors === 'character'){
+            $hero.innerHTML = name;
+            $characterImg.src=img
+        }else{
+        $enemy.innerHTML = name
+        $enemyImg.src=img
+        }
         elHP.innerText = current + '/' + total
     }
 }

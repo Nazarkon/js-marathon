@@ -1,18 +1,8 @@
 import Pokemon from './pokemon.js';
 
-const player1 = new Pokemon({
-    name:'Pikachu',
-    type:'electric',
-    hp:500,
-    selectors: 'character'
-})
+let player1;
 
-const player2 = new Pokemon({
-    name:'Raichu',
-    type:'thunder',
-    hp:450,
-    selectors: 'enemy'
-})
+let player2;
 
 const objId = {
     lowDamage: 0,
