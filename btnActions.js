@@ -5,7 +5,9 @@ import {
     $currClickCountLow,
     $btnStart,
     $btnReset,
-    $btnShowCount
+    $btnShowCount,
+    $btnRandomHero,
+    $btnRandomEnemy,
 } from "./variables.js";
 
 import {
@@ -15,16 +17,18 @@ import {
 import {
     random,
     resetBtnFunction,
+    getMeRandomElements
 } from "./helper.js";
 
 import {
-    player1,
-    player2,
     objId,
     showClickCount
 } from "./main.js";
+import Pokemon from "./pokemon.js";
+import {pokemons} from "./pokemons.js";
 
-
+let player1;
+let player2;
 
 $btnLow.addEventListener('click', function () {
     const { hp: {current}} = player1;
@@ -67,10 +71,35 @@ $btnReset.addEventListener('click', function () {
 $btnStart.addEventListener('click',function () {
     resetBtnFunction(false)
     objId.heightDamage = 0;
-    objId.lowDamage = 0;
+    objId.lowDamage = 0
     $currClickCountHeight.innerHTML = objId.maxClickCountHeightDamage;
     $currClickCountLow.innerHTML = objId.maxClickCountLowDamage;
 })
 $btnShowCount.addEventListener('click', function () {
     createTextElement(showClickCount(),'countLog')
 })
+
+$btnRandomHero.addEventListener('click',function () {
+    const hero = getMeRandomElements(pokemons)
+    player1 = new Pokemon({
+        name: hero.name,
+        type: hero.type,
+        hp: hero.hp,
+        img: hero.img,
+        selectors: 'character'
+    })
+})
+
+$btnRandomEnemy.addEventListener('click',function () {
+    const enemy = getMeRandomElements(pokemons)
+    player2 = new Pokemon({
+        name: enemy.name,
+        type: enemy.type,
+        hp: enemy.hp,
+        img: enemy.img,
+        selectors: 'enemy'
+        
+    })
+})
+
+export {player1,player2}

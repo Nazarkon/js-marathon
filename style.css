@@ -12,6 +12,9 @@ header{
     flex-direction: column;
     align-items: center;
 }
+.btn-random{
+    height: 50px;
+}
 body {
     color: black;
     position: relative;
@@ -95,7 +98,7 @@ body {
     text-align: center;
     position: relative;
     width: 180px;
-    height: 260px;
+    height: 216px;
     min-width: 150px;
     margin: 20px;
     background-image: url(./assets/card.svg);

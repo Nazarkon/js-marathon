@@ -6,5 +6,10 @@ function random(num){
 
 function resetBtnFunction (currValue) {$gameBtn.forEach(btn => btn.disabled = currValue)}
 
+let getMeRandomElements = function(sourceArray) {
+    const result = sourceArray[Math.floor(Math.random() * sourceArray.length)];
+    console.log(result,'res')
+    return result
+}
 
-export { random , resetBtnFunction}
+export { random , resetBtnFunction , getMeRandomElements}
