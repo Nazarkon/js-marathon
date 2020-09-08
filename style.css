@@ -43,16 +43,19 @@ body {
 }
 
 .control {
-    width: 320px;
-    height: 260px;
+    width: 900px;
+    height: 300px;
     position: relative;
     margin: 20px;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 }
-
+.character-btn{
+    flex:1;
+    height: 100%;
+    padding: 20px;
+}
 .playground {
     max-width: 1024px;
     display: flex;

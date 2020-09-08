@@ -1,9 +1,3 @@
-import Pokemon from './pokemon.js';
-
-let player1;
-
-let player2;
-
 const objId = {
     lowDamage: 0,
     heightDamage: 0,
@@ -37,5 +31,5 @@ document.addEventListener('click', function (e) {
 }, false);
 
 
-export {player2 ,player1 , objId , showClickCount}
+export {objId , showClickCount}
 

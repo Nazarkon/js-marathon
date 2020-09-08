@@ -1,13 +1,11 @@
 import {
-    $btnHeight,
-    $btnLow,
     $currClickCountHeight,
     $currClickCountLow,
     $btnStart,
     $btnReset,
     $btnShowCount,
-    $btnRandomHero,
-    $btnRandomEnemy,
+    $areaBtn,
+    $logs
 } from "./variables.js";
 
 import {
@@ -17,89 +15,83 @@ import {
 import {
     random,
     resetBtnFunction,
-    getMeRandomElements
+    getMeRandomElements,
+    renderListOfButtons
 } from "./helper.js";
 
 import {
     objId,
-    showClickCount
+    showClickCount,
 } from "./main.js";
-import Pokemon from "./pokemon.js";
-import {pokemons} from "./pokemons.js";
+import {Pokemon , pokemon} from "./pokemon.js";
 
 let player1;
 let player2;
 
-$btnLow.addEventListener('click', function () {
-    const { hp: {current}} = player1;
-    if(objId.lowDamage < objId.maxClickCountLowDamage){
-        $currClickCountLow.innerHTML = $currClickCountLow.innerHTML - 1;
-        player1.changeHp(random(current));
-        player2.changeHp(random(current));
-    }else{
-        const $btn = document.getElementById(id)
-        $currClickCountLow.innerHTML = 0;
-        $btn.disabled = true
-    }
-})
-
-$btnHeight.addEventListener('click', function () {
-    const { hp: {current}} = player1;
-    if(objId.heightDamage < objId.maxClickCountHeightDamage) {
-        $currClickCountHeight.innerHTML = $currClickCountHeight.innerHTML - 1;
-        player1.changeHp(random(current))
-        player2.changeHp(random(current))
-    }else{
-        const $btn = document.getElementById(id)
-        $currClickCountHeight.innerHTML = 0;
-        $btn.disabled = true
-    }
-})
 
 $btnReset.addEventListener('click', function () {
     resetBtnFunction(false)
+    $logs.innerHTML = '';
+    $btnStart.removeAttribute('disabled')
+    $btnReset.setAttribute('disabled','')
+    player1.elArea.innerHTML = ''
+    player2.elArea.innerHTML = ''
     player1.hp.current = player1.hp.total;
     player2.hp.current = player2.hp.total
     player1.renderHPLife();
     player2.renderHPLife();
     player1.renderProgressbarHp();
     player2.renderProgressbarHp();
-    $currClickCountHeight.innerHTML = objId.maxClickCountHeightDamage;
-    $currClickCountLow.innerHTML = objId.maxClickCountLowDamage;
 });
 
 $btnStart.addEventListener('click',function () {
     resetBtnFunction(false)
-    objId.heightDamage = 0;
-    objId.lowDamage = 0
-    $currClickCountHeight.innerHTML = objId.maxClickCountHeightDamage;
-    $currClickCountLow.innerHTML = objId.maxClickCountLowDamage;
-})
-$btnShowCount.addEventListener('click', function () {
-    createTextElement(showClickCount(),'countLog')
-})
-
-$btnRandomHero.addEventListener('click',function () {
-    const hero = getMeRandomElements(pokemons)
+    const hero = getMeRandomElements(pokemon)
     player1 = new Pokemon({
+        id: hero.id,
         name: hero.name,
         type: hero.type,
         hp: hero.hp,
         img: hero.img,
+        attacks: hero.attacks,
         selectors: 'character'
     })
-})
-
-$btnRandomEnemy.addEventListener('click',function () {
-    const enemy = getMeRandomElements(pokemons)
+    renderListOfButtons(player1)
+    const enemy = getMeRandomElements(pokemon)
     player2 = new Pokemon({
+        id: enemy.id,
         name: enemy.name,
         type: enemy.type,
         hp: enemy.hp,
         img: enemy.img,
+        attacks: hero.attacks,
         selectors: 'enemy'
         
     })
+    renderListOfButtons(player2)
+    $btnReset.removeAttribute('disabled');
+    $btnStart.setAttribute('disabled','')
+})
+
+$areaBtn.addEventListener('click', async function(e){
+    const playerOneCustomId =`${e.target.getAttribute('custom-id')}-${player1.selectors}`;
+    const playerTwoCustomId = `${e.target.getAttribute('custom-id')}-${player2.selectors}`;
+    if(e.target.id === playerOneCustomId){
+        const response =  await fetch(`https://reactmarathon-api.netlify.app/api/fight?player1id=${player1.id}&attackId=${e.target.getAttribute('custom-id')}&player2id=${player2.id}`)
+        const damage =  await response.json();
+        player1.changeHp(damage.kick.player1)
+        player2.changeHp(damage.kick.player2)
+    }else if(e.target.id === playerTwoCustomId){
+        const response =  await fetch(`https://reactmarathon-api.netlify.app/api/fight?player1id=${player2.id}&attackId=${e.target.getAttribute('custom-id')}&player2id=${player1.id}`)
+        const damage =  await response.json();
+        player1.changeHp(damage.kick.player1)
+        player2.changeHp(damage.kick.player2)
+    }
+})
+
+
+$btnShowCount.addEventListener('click', function () {
+    createTextElement(showClickCount(),'countLog')
 })
 
 export {player1,player2}
